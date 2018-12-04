@@ -1,0 +1,6 @@
+A	A_variants.vcf
+B	B_variants.vcf
+C	C_variants.vcf	
+D	D_variants.vcf
+E	E_variants.vcf
+F	F_variants.vcf
