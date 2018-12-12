@@ -16,6 +16,8 @@ This will produce `.list` files for each of the samples. A two columns `.txt` fi
 
 `Rscript structure.r samples.txt`
 
-This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNP found in each of the samples. Then, we run `genome_wise_calculations.py` to estimate genome-wide 
+This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNP found in each of the samples. Then, we use this table as input to `genome_wise_calculations.py`, which will estimate Fst and Pi genome-wide. 
+
+`./genome_wise_calculations.py samples.txtFst_pos.txt reference_genome.fasta toy_example`
 
 
