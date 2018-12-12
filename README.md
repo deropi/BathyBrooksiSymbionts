@@ -11,3 +11,5 @@ In this folder are located the R and Python scripts that were used to study symb
 First, we merge all SNPs found across samples into count files for each individual sample. This script is using .vcf files that have been produced by [**Lofreq**](http://csb5.github.io/lofreq/), and uses the DP4 field to extract the nucleotide counts.
 
 `./vcf_to_mergedcounts.py .`
+
+This will produce `.list` files for each of the samples. A two columns `.txt` file is required, where the name of the samples must be linked to the name of its corresponding file (see `metagenomes/samples.txt`). This table is used as the input for the R script, which will 
