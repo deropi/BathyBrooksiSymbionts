@@ -1,8 +1,27 @@
-# BathyBrooksiSymbionts
+# *Bathymodiolus Brooksi* symbionts
 
-This repository contains scripts used for population genetic analyses of Bathymodiolus brooksi symbionts from Gulf of Mexico.
+Welcome to BathyBrooksiSymbionts repository! Here, you will find the in-house scripts that were used for the [population structure and strain evolution](https://pages.github.com/) analyses of chemosynthetic symbionts from the deep-sea mussel *Bathymodiolus brooksi*. 
 
-# Population_structure_analyses
+## Population_structure_analyses
 
-This directory contains python and R scripts for the analyses of population structure of the symbionts together with ,,,
+In this folder are located the R and Python scripts that were used to study symbiont population structure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). 
+
+### Simple example
+
+First, we merge all SNPs found across samples into count files for each individual sample. This script is using .vcf files that have been produced by [**Lofreq**](http://csb5.github.io/lofreq/), and uses the DP4 field to extract the nucleotide counts.
+
+`./vcf_to_mergedcounts.py .`
+
+This will produce `.list` files for each of the samples. A two columns `.txt` file is required, where the name of the samples must be linked to the name of its corresponding file (see `metagenomes/samples.txt`). This table is used as the input for the R script, which will perform the population structure analyses. 
+
+`Rscript structure.r samples.txt`
+
+This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNP found in each of the samples. Then, we use this table as input to `genome_wise_calculations.py`, which will estimate Fst and Pi genome-wide.
+
+`./genome_wise_calculations.py samples.txtFst_pos.txt reference_genome.fasta toy_example`
+
+This will output a dataframe with Pi values for each sample (`toy_example_pi.out`), and a matrix with pair-wise Fst values (`toy_example_fst.mat`). 
+
+
+
 
