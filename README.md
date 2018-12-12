@@ -20,7 +20,7 @@ This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing 
 
 `./genome_wise_calculations.py samples.txtFst_pos.txt reference_genome.fasta toy_example`
 
-This will output a dataframe with Pi values for each sample, and a matrix with pair-wise Fst values. 
+This will output a dataframe with Pi values for each sample (`toy_example_pi.out`), and a matrix with pair-wise Fst values (`toy_example_fst.mat`). 
 
 
 
