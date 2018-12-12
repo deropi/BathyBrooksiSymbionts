@@ -4,7 +4,7 @@ Welcome to BathyBrooksiSymbionts repository! Here, you will find the in-house sc
 
 ## Population_structure_analyses
 
-In this folder are located the R and Python scripts that were used to study symbiont population structure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). 
+In this folder are located the R and Python scripts that were used to study symbiont population structure and selective preassure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
 
 ### Simple example
 
@@ -21,6 +21,12 @@ This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing 
 `./genome_wise_calculations.py samples.txtFst_pos.txt reference_genome.fasta toy_example`
 
 This will output a dataframe with Pi values for each sample (`toy_example_pi.out`), and a matrix with pair-wise Fst values (`toy_example_fst.mat`). 
+
+Additionally, pN/pS per gene and for the entire population are estimated with the following command:
+
+`./pN_pS_calculations.py . reference_genome.fasta toy_pNpS good_snps.txt`
+
+A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format (`Gene1*3`).
 
 
 
