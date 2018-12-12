@@ -116,115 +116,15 @@ print_fst_pos<-function(snps,samplefile){
 	write.table(snps,name,sep="\t",quote=F,row.names=F)
 }
 
-add_pi_genes<-function(snps,genes,samples){
 
-	print("Pi gene calculation")
-
-	ng=dim(genes)[1]
-	genes$SNPs=rep(0,ng)
-	for (g in seq(1,ng)){
-		start=genes[g,"Start"]
-		end=genes[g,"End"]
-		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
-		genes[g,"SNPs"]=sum(sub)
-	}
-
-	for (s in samples){
-		name=paste("pi_",s,sep="")
-		genes[,name]=rep(0,ng)
-	}
-
-	for (g in seq(1,ng)){
-		if(!genes[g,"SNPs"]){next;}
-		start=genes[g,"Start"]
-		end=genes[g,"End"]
-		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
-		
-		for (s in samples){
-			name=paste("pi_",s,sep="")
-			pi=sum(snps[sub,name])
-			pi=pi/(end-start+1)
-			genes[g,name]=pi
-		}
-	}
-	genes
-}
-
-add_pi_genes2<-function(snps,genes,samples){
-	
-	print("Between-sample pi gene calculation")
-
-	ng=dim(genes)[1]
-	for (i1 in seq(1,length(samples)-1)){
-		s1=samples[i1]
-		for (i2 in seq(i1+1,length(samples))){
-			s2=samples[i2]
-			print(c(s1,s2))
-			name=paste("pi",s1,s2,sep="_")
-			genes[,name]=rep(0,ng)
-		}
-	}
-
-	for (g in seq(1,ng)){
-		if(!genes[g,"SNPs"]){next;}
-		start=genes[g,"Start"]
-		end=genes[g,"End"]
-		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
-		
-		for (i1 in seq(1,length(samples)-1)){
-			s1=samples[i1]
-			for (i2 in seq(i1+1,length(samples))){
-				s2=samples[i2]
-				name=paste("pi",s1,s2,sep="_")
-				pi=sum(snps[sub,name])
-				pi=pi/(end-start+1)
-				genes[g,name]=pi
-			}
-		}
-	}
-	genes
-}
-
-add_fst_genes<-function(genes,samples){
-
-	print("Gene Fst calculation")
-	
-	nsamp=length(samples)
-	names1=paste("pi",samples,sep="_")
-	n=names(genes)
-	n=n[substr(n,1,3)=="pi_"]
-	names2=setdiff(n,names1)  #between sample pi
-	pi1=genes[,names1]
-	pi2=genes[,names2]
-	pi1a=rowSums(pi1)/nsamp
-	pi2a=rowSums(pi2)/(nsamp*(nsamp-1)/2)
-	genes$Fst=1-(pi1a/pi2a)
-
-	for (i1 in seq(1,length(samples)-1)){
-		s1=samples[i1]
-		for (i2 in seq(i1+1,length(samples))){
-			s2=samples[i2]
-			name=paste("Fst",s1,s2,sep="_")
-			genes[,name]=1-(genes[,paste("pi",s1,sep="_")]+genes[,paste("pi",s2,sep="_")])/2/genes[,paste("pi",s1,s2,sep="_")]
-		}
-	}
-	genes
-}
-
-print_fst_genes<-function(genes,samplefile){
-
-	name=paste(samplefile,"Fst.txt",sep="")
-	print(paste("Writing",name))
-	write.table(genes,name,sep="\t",quote=F,row.names=F)
-}
 
 args = commandArgs(trailingOnly=TRUE)
-if (length(args)!=2) {
-  stop("Usage: structure.r <samples> <gff>", call.=FALSE)
+if (length(args)!=1) {
+  stop("Usage: structure.r <samples>", call.=FALSE)
 }
 
 samplefile=args[1]
-gff=args[2]
+
 
 samples=get_samples(samplefile)
 snps=get_snps(samples)
@@ -233,11 +133,6 @@ snps=add_pi2(snps,names(samples))
 snps=add_fst(snps,names(samples))
 print_fst_pos(snps,samplefile)
 
-genes=get_genes(gff)
-genes=add_pi_genes(snps,genes,names(samples))
-genes=add_pi_genes2(snps,genes,names(samples))
-genes=add_fst_genes(genes,names(samples))
-print_fst_genes(genes,samplefile)
 
 
 
