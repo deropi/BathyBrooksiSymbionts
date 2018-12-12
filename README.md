@@ -12,4 +12,10 @@ First, we merge all SNPs found across samples into count files for each individu
 
 `./vcf_to_mergedcounts.py .`
 
-This will produce `.list` files for each of the samples. A two columns `.txt` file is required, where the name of the samples must be linked to the name of its corresponding file (see `metagenomes/samples.txt`). This table is used as the input for the R script, which will 
+This will produce `.list` files for each of the samples. A two columns `.txt` file is required, where the name of the samples must be linked to the name of its corresponding file (see `metagenomes/samples.txt`). This table is used as the input for the R script, which will perform the population structure analyses. 
+
+`Rscript structure.r samples.txt`
+
+This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNP found in each of the samples. 
+
+
