@@ -24,7 +24,7 @@ This will output a dataframe with Pi values for each sample (`toy_example_pi.out
 
 Additionally, pN/pS per gene and for the entire population are estimated with the following command:
 
-`pN_pS_calculations.py . reference_genome.fasta toy_pNpS good_snps.txt`
+`./pN_pS_calculations.py . reference_genome.fasta toy_pNpS good_snps.txt`
 
 A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format (`Gene1*3`).
 
