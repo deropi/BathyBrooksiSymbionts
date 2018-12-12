@@ -8,4 +8,6 @@ In this folder are located the R and Python scripts that were used to study symb
 
 ### Simple example
 
+First, we merge all SNPs found across samples into count files for each individual sample. This script is using .vcf files that have been produced by [**Lofreq**](http://csb5.github.io/lofreq/), and uses the DP4 field to extract the nucleotide counts.
 
+`./vcf_to_mergedcounts.py .`
