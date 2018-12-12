@@ -4,5 +4,8 @@ Welcome to BathyBrooksiSymbionts repository! Here, you will find the in-house sc
 
 ## Population_structure_analyses
 
-This directory contains python and R scripts for the analyses of population structure of the symbionts together with ,,,
+In this folder are located the R and Python scripts that were used to study symbiont population structure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). 
+
+### Simple example
+
 
