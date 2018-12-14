@@ -1,14 +1,14 @@
 # *Bathymodiolus Brooksi* symbionts
 
-Welcome to BathyBrooksiSymbionts repository! Here, you will find the in-house scripts that were used for the [population structure and strain evolution](https://pages.github.com/) analyses of chemosynthetic symbionts from the deep-sea mussel *Bathymodiolus brooksi*. 
+Welcome to BathyBrooksiSymbionts repository! Here, you will find the scripts that were used for the [population structure and strain evolution](https://pages.github.com/) analyses of chemosynthetic symbionts from the deep-sea mussel *Bathymodiolus brooksi*. 
 
-## Population_structure_analyses
+## Population structure analysis
 
-In this folder are located the R and Python scripts that were used to study symbiont population structure and selective preassure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
+This folder contains R and Python scripts that were used to study symbiont population structure and selective preassure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
 
 ### Simple example
 
-First, we merge all SNPs found across samples into count files for each individual sample. This script is using .vcf files that have been produced by [**Lofreq**](http://csb5.github.io/lofreq/), and uses the DP4 field to extract the nucleotide counts.
+First, we merge all SNPs found across samples into count files for each individual sample. This script is using .vcf files that have been produced by [**Lofreq**](http://csb5.github.io/lofreq/), and requires the DP4 field to extract the nucleotide counts.
 
 `./vcf_to_mergedcounts.py .`
 
@@ -16,7 +16,7 @@ This will produce `.list` files for each of the samples. A two columns `.txt` fi
 
 `Rscript structure.r samples.txt`
 
-This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNP found in each of the samples. Then, we use this table as input to `genome_wise_calculations.py`, which will estimate Fst and Pi genome-wide.
+This results in the generation of a matrix `samples.txtFst_pos.txt` ,containing Fst and Pi values for each SNV found in each of the samples. Then, we use this table as input to `genome_wise_calculations.py`, which will estimate Fst and Pi genome-wide.
 
 `./genome_wise_calculations.py samples.txtFst_pos.txt reference_genome.fasta toy_example`
 
@@ -26,7 +26,7 @@ Additionally, pN/pS per gene and for the entire population are estimated with th
 
 `./pN_pS_calculations.py . reference_genome.fasta toy_pNpS good_snps.txt`
 
-A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format (`Gene1*3`).
+A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format: `Gene1*3`.
 
 
 
