@@ -4,7 +4,7 @@ Welcome to BathyBrooksiSymbionts repository! Here, you will find the scripts tha
 
 ## Population structure analysis
 
-This folder contains R and Python scripts that were used to study symbiont population structure and selective preassure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
+This folder contains R and Python scripts that were used to study symbiont population structure and selective pressure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
 
 ### Simple example
 
