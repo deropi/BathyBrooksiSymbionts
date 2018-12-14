@@ -1,6 +1,6 @@
 # *Bathymodiolus Brooksi* symbionts
 
-Welcome to BathyBrooksiSymbionts repository! Here, you will find the in-house scripts that were used for the [population structure and strain evolution](https://pages.github.com/) analyses of chemosynthetic symbionts from the deep-sea mussel *Bathymodiolus brooksi*. 
+Welcome to BathyBrooksiSymbionts repository! Here, you will find the scripts that were used for the [population structure and strain evolution](https://pages.github.com/) analyses of chemosynthetic symbionts from the deep-sea mussel *Bathymodiolus brooksi*. 
 
 ## Population structure analysis
 
