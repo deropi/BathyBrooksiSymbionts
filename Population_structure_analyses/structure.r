@@ -120,7 +120,7 @@ print_fst_pos<-function(snps,samplefile){
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)!=1) {
-  stop("Usage: structure.r <samples>", call.=FALSE)
+  stop("Usage: structure.r <samples>\nPlease, report bugs to Anne Kupczok (akupczok@ifam.uni-kiel.de)\n", call.=FALSE)
 }
 
 samplefile=args[1]
