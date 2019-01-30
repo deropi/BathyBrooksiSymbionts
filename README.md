@@ -32,5 +32,9 @@ A file with the SNVs that must be parsed is required. This file contains in each
 
 This folder containsa python script implemented to perform Allele Frequency Spectra and Neutrality Index analyses. The Derived allele is assumed to be the allele which is present in less number of strains in the population. Ties are resolved by assuming an ancestral strain state, that is taken by the program as an argument. 
 
+## MetaGenomic Species of the symbionts
+
+This folder contains the reconstructed core-genomes for the two symbionts. 
+
 
 
