@@ -28,6 +28,9 @@ Additionally, pN/pS per gene and for the entire population are estimated with th
 
 A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format: `Gene1*3`.
 
+## Allele Frequency Spectra and Neutrality Index
+
+This folder containsa python script implemented to perform Allele Frequency Spectra and Neutrality Index analyses. The Derived allele is assumed to be the allele which is present in less number of strains in the population. Ties are resolved by assuming an ancestral strain state, that is taken by the program as an argument. 
 
 
 
