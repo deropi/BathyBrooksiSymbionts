@@ -1,0 +1,6 @@
+A	A_variants_SNPs.list
+B	B_variants_SNPs.list
+C	C_variants_SNPs.list
+D	D_variants_SNPs.list
+E	E_variants_SNPs.list
+F	F_variants_SNPs.list
