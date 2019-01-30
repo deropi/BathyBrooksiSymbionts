@@ -4,7 +4,7 @@ Welcome to BathyBrooksiSymbionts repository! Here, you will find the scripts tha
 
 ## Population structure analysis
 
-This folder contains R and Python scripts that were used to study symbiont population structure and selective preassure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
+This folder contains R and Python scripts that were used to study symbiont population structure and selective pressure. Additionally, you can find a toy example to test the scripts, which is composed by SNVs called in 6 different samples (A-F). Note that these analyses are gene-based, thus, the reference sequences and coordinates for the SNVs are based on genes.
 
 ### Simple example
 
@@ -28,6 +28,9 @@ Additionally, pN/pS per gene and for the entire population are estimated with th
 
 A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format: `Gene1*3`.
 
+## Allele Frequency Spectra and Neutrality Index
+
+This folder containsa python script implemented to perform Allele Frequency Spectra and Neutrality Index analyses. The Derived allele is assumed to be the allele which is present in less number of strains in the population. Ties are resolved by assuming an ancestral strain state, that is taken by the program as an argument. 
 
 
 
