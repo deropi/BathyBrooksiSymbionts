@@ -1,0 +1,3 @@
+A	A_variants_SNPs.list
+B	B_variants_SNPs.list
+C	C_variants_SNPs.list
