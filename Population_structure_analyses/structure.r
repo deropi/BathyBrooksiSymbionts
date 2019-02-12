@@ -136,6 +136,7 @@ print_fst_pos<-function(snps,samplefile){
 
 
 ###### GENES #######
+<<<<<<< HEAD
 
 #Add pi to genes in gff format
 add_pi_genes_gff<-function(snps,genes,samples, globals){
@@ -227,12 +228,34 @@ add_pi_genes2_gff<-function(snps,genes,samples, globals){
 			new_df2 <- data.frame(sample=as.character(df_name), total_pi = as.integer(0))
 			new_df <- rbind(new_df,new_df2)
 		}
+=======
+
+#Add pi to genes in gff format
+add_pi_genes_gff<-function(snps,genes,samples, globals){
+	print("Pi gene calculation")
+	total_length <- 0
+  	ng=dim(genes)[1]
+	genes$SNPs=rep(0,ng)
+	for (g in seq(1,ng)){
+		start=genes[g,"Start"]
+		end=genes[g,"End"]
+		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
+		#print (sub)
+		#print (sum(sub))
+		genes[g,"SNPs"]=sum(sub)
+	}
+
+	for (s in samples){
+		name=paste("pi_",s,sep="")
+		genes[,name]=rep(0,ng)
+>>>>>>> 01f3571b5e03dc03bf7562dd1c879e8a154ecc3f
 	}
 
 	for (g in seq(1,ng)){
 		if(!genes[g,"SNPs"]){next;}
 		start=genes[g,"Start"]
 		end=genes[g,"End"]
+<<<<<<< HEAD
 		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
 		
 		for (i1 in seq(1,length(samples)-1)){
@@ -350,15 +373,61 @@ if (length(args)<1) {
 
 samplefile=args[1]
 coding_seq=args[2]
+=======
+		total_length <- total_length + (end-start+1)
+		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
+		
+		for (s in samples){
+			name=paste("pi_",s,sep="")
+			pi=sum(snps[sub,name])
+			globals$total_pi[(globals$sample==s)] <- globals$total_pi[(globals$sample==s)] + pi
+			pi=pi/(end-start+1)
+			genes[g,name]=pi
+		}
+	}
+	assign('globals',globals,envir=.GlobalEnv)
+	assign('total_length',total_length,envir=.GlobalEnv)
+	genes
+}
+
+>>>>>>> 01f3571b5e03dc03bf7562dd1c879e8a154ecc3f
 
 
-samples=get_samples(samplefile)
-snps=get_snps(samples)
-snps=add_pi(snps,names(samples))
-snps=add_pi2(snps,names(samples))
-snps=add_fst(snps,names(samples))
-print_fst_pos(snps,samplefile)
+add_pi_genes_fasta<-function(snps,genes,samples, globals){
+  
+  print("Pi gene calculation")
+  total_length <- 0
+  ng=dim(genes)[1]
+  genes$SNPs=rep(0,ng)
+  for (g in seq(1,ng)){
+    sub=snps$Contig==as.character(genes[g,"Contig"])
+    genes[g,"SNPs"]=sum(sub)
+    total_length <- total_length + genes[g,"Length"]
+  }
+  count = 1
+  for (s in samples){
+    name=paste("pi_",s,sep="")
+    genes[,name]=rep(0,ng)
+    count <- count + 1
+    
+  }
+  for (g in seq(1,ng)){
+    if(!genes[g,"SNPs"]){next;}
+    sub=snps$Contig==as.character(genes[g,"Contig"])
+    for (s in samples){
+      name=paste("pi_",s,sep="")
+      pi=sum(snps[sub,name])
+      globals$total_pi[(globals$sample==s)] <- globals$total_pi[(globals$sample==s)] + pi
+      pi=pi/genes[g,"Length"]
+      genes[g,name]=pi
+    }
+  }
+  assign('globals',globals,envir=.GlobalEnv)
+  assign('total_length',total_length,envir=.GlobalEnv)
+  genes
+}
 
+<<<<<<< HEAD
 globals <- data.frame(sample = names(samples), total_pi=rep(0, length(samples)))
 if (length(args)>1) {
   if (grepl('.gff', coding_seq)) {
@@ -374,9 +443,166 @@ if (length(args)>1) {
   print (globals)
   print_fst_genes(genes,samplefile)
 }
+=======
+add_pi_genes2_gff<-function(snps,genes,samples, globals){
+  new_df <- data.frame(sample=as.character(), total_pi=as.integer())
+	print("Between-sample pi gene calculation")
+	ng=dim(genes)[1]
+	for (i1 in seq(1,length(samples)-1)){
+	  s1=samples[i1]
+		for (i2 in seq(i1+1,length(samples))){
+		  s2=samples[i2]
+			print(c(s1,s2))
+			name=paste("pi",s1,s2,sep="_")
+			df_name = paste(s1,s2,sep="_")
+			genes[,name]=rep(0,ng)
+			new_df2 <- data.frame(sample=as.character(df_name), total_pi = as.integer(0))
+			new_df <- rbind(new_df,new_df2)
+		}
+	}
+
+	for (g in seq(1,ng)){
+		if(!genes[g,"SNPs"]){next;}
+		start=genes[g,"Start"]
+		end=genes[g,"End"]
+		sub=snps$Contig==as.character(genes[g,"Contig"])&snps$Pos>=start&snps$Pos<=end
+		
+		for (i1 in seq(1,length(samples)-1)){
+			s1=samples[i1]
+			for (i2 in seq(i1+1,length(samples))){
+				s2=samples[i2]
+				name=paste("pi",s1,s2,sep="_")
+				df_name = paste(s1,s2,sep="_")
+				pi=sum(snps[sub,name])
+				new_df$total_pi[(new_df$sample==df_name)] <- new_df$total_pi[(new_df$sample==df_name)] + pi
+				pi=pi/(end-start+1)
+				genes[g,name]=pi
+			}
+		}
+	}
+	globals <- rbind(globals, new_df)
+	globals$global_pi <- globals$total_pi/total_length
+	assign('globals',globals,envir=.GlobalEnv)
+	genes
+}
+
+>>>>>>> 01f3571b5e03dc03bf7562dd1c879e8a154ecc3f
+
+add_pi_genes2_fasta<-function(snps,genes,samples, globals){
+  new_df <- data.frame(sample=as.character(), total_pi=as.integer())
+  print("Between-sample pi gene calculation")
+  ng=dim(genes)[1]
+  for (i1 in seq(1,length(samples)-1)){
+    s1=samples[i1]
+    for (i2 in seq(i1+1,length(samples))){
+      s2=samples[i2]
+      print(c(s1,s2))
+      name=paste("pi",s1,s2,sep="_")
+      df_name = paste(s1,s2,sep="_")
+      genes[,name]=rep(0,ng)
+      new_df2 <- data.frame(sample=as.character(df_name), total_pi = as.integer(0))
+      new_df <- rbind(new_df,new_df2)
+    }
+  }
+  
+  for (g in seq(1,ng)){
+    if(!genes[g,"SNPs"]){next;}
+
+    sub=snps$Contig==as.character(genes[g,"Contig"])
+    
+    for (i1 in seq(1,length(samples)-1)){
+      s1=samples[i1]
+      for (i2 in seq(i1+1,length(samples))){
+        s2=samples[i2]
+        name=paste("pi",s1,s2,sep="_")
+        df_name = paste(s1,s2,sep="_")
+        pi=sum(snps[sub,name])
+        new_df$total_pi[(new_df$sample==df_name)] <- new_df$total_pi[(new_df$sample==df_name)] + pi
+        pi=pi/genes[g,"Length"]
+        genes[g,name]=pi
+      }
+    }
+  }
+  globals <- rbind(globals, new_df)
+  globals$global_pi <- globals$total_pi/total_length
+  assign('globals',globals,envir=.GlobalEnv)
+  genes
+}
 
 
+add_fst_genes<-function(genes,samples, globals){
+  globals$total_fst=rep(0,dim(globals)[1])
+
+	print("Gene Fst calculation")
+	
+	nsamp=length(samples)
+	names1=paste("pi",samples,sep="_")
+	n=names(genes)
+	n=n[substr(n,1,3)=="pi_"]
+	print (n)
+	print (names1)
+	names2=setdiff(n,names1)  #between sample pi
+	pi1=genes[,names1]
+	pi2=genes[,names2]
+	pi1a=rowSums(pi1)/nsamp
+	pi2a=rowSums(pi2)/(nsamp*(nsamp-1)/2)
+	genes$Fst=1-(pi1a/pi2a)
+
+	for (i1 in seq(1,length(samples)-1)){
+	  s1=samples[i1]
+		for (i2 in seq(i1+1,length(samples))){
+			s2=samples[i2]  
+			name=paste("Fst",s1,s2,sep="_")
+			df_name = paste(s1,s2,sep="_")
+			global_fst <- 1-(globals$global_pi[(globals$sample==s1)]+globals$global_pi[(globals$sample==s2)])/2/globals$global_pi[(globals$sample==paste(s1,s2,sep="_"))]
+			globals$total_fst[(globals$sample==paste(s1,s2,sep="_"))] <- global_fst
+			genes[,name]=1-(genes[,paste("pi",s1,sep="_")]+genes[,paste("pi",s2,sep="_")])/2/genes[,paste("pi",s1,s2,sep="_")]
+		}
+	}
+	assign('globals',globals,envir=.GlobalEnv)
+	genes
+}
+
+print_fst_genes<-function(genes,samplefile){
+
+	name=paste(samplefile,"Fst.txt",sep="")
+	print(paste("Writing",name))
+	write.table(genes,name,sep="\t",quote=F,row.names=F)
+}
 
 
+  
+  
+
+  
+#### Arguments
+args = commandArgs(trailingOnly=TRUE)
+if (length(args)<1) {
+  stop("Usage: structure.r <samples>\nPlease, report bugs to Anne Kupczok (akupczok@ifam.uni-kiel.de)\n", call.=FALSE)
+}
+
+samplefile=args[1]
+coding_seq=args[2]
 
 
+samples=get_samples(samplefile)
+snps=get_snps(samples)
+snps=add_pi(snps,names(samples))
+snps=add_pi2(snps,names(samples))
+snps=add_fst(snps,names(samples))
+print_fst_pos(snps,samplefile)
+globals <- data.frame(sample = names(samples), total_pi=rep(0, length(samples)))
+if (length(args)>1) {
+  if (grepl('.gff', coding_seq)) {
+	  genes=get_genes_gff(coding_seq)
+	  genes=add_pi_genes_gff(snps,genes,names(samples),globals)
+	  genes=add_pi_genes2_gff(snps,genes,names(samples),globals)
+  } else if (grepl('.fasta', coding_seq)){
+    genes=get_genes_fasta(coding_seq)
+    genes=add_pi_genes_fasta(snps,genes,names(samples),globals)
+    genes=add_pi_genes2_fasta(snps,genes,names(samples), globals)
+  }
+  genes=add_fst_genes(genes,names(samples), globals)
+  print (globals)
+  print_fst_genes(genes,samplefile)
+}
