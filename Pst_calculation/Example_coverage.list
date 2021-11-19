@@ -1,0 +1,11 @@
+CHROM   Pos     Ref     presence        absence
+NODE_660114_length_511_cov_1.42708_1_len_99_K   NODE_660114_length_511_cov_1.42708_1_len_99_K   presence        1272    99
+11546   11546   presence        1636    0
+35783   35783   presence        1713    0
+1010687 1010687 presence        0       1371
+1868    1868    presence        684     687
+26377   26377   presence        1294    77
+38672   38672   presence        1266    105
+5989    5989    presence        1443    0
+1459940 1459940 presence        826     545
+1008375 1008375 presence        179     1192
