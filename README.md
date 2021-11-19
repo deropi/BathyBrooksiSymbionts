@@ -28,3 +28,22 @@ Additionally, pN/pS per gene and for the entire population are estimated with th
 
 A file with the SNVs that must be parsed is required. This file contains in each line a SNV ID, which contains the geneID and the position in the following format: `Gene1*3`.
 
+## AFS_Ni
+
+Here you will find a python script to calculate McDonald-Kreitman and Allele Frequency Spectrum statistics. 
+
+## Pst calculation
+
+Here you find the R  and python scripts to calculate Pst (Pangenome Index). The file Example_coverage.list shows the format expected. Presence is calculated as the gene coverage while absence is calculated as the difference between the full expected coverage and the actual coverage of the gene. For more detailed information on how to run it check the section Population structure analysis. 
+
+## MAGs
+
+Metagenome-Assembled Genomes of MOX and SOX bacteria across samples. 
+
+## Pangenomes
+
+This folder contains the pangenomes (gene content) of MOX and SOX bacteria. These comprise the latest versio of the core genomes and accessory genes. The status of the genes are shown in the header. 
+
+## Phage
+
+The one confident contig identified as a phage in the entire dataset has been deposited here. This contig is present in sample E. 
