@@ -34,7 +34,7 @@ Here you will find a python script to calculate McDonald-Kreitman and Allele Fre
 
 ## Pst calculation
 
-Here you find the R  and python scripts to calculate Pst (Pangenome Index). The file Example_coverage.list shows the format expected. Presence is calculated as the gene coverage while absence is calculated as the difference between the full expected coverage and the actual coverage of the gene. For more detailed information on how to run it check the section Population structure analysis. 
+Here you find the R  and python scripts to calculate Pst (Pangenome Index). The file `Example_coverage.list` shows the format expected. Presence is calculated as the gene coverage while absence is calculated as the difference between the full expected coverage and the actual coverage of the gene. For more detailed information on how to run it check the section Population structure analysis. 
 
 ## MAGs
 
